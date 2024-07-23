@@ -19,10 +19,8 @@ jobs:
             node-version: 18
 
       - name: Build App
-        working-directory:  frontend
         run: |
-          npm install
-          npm run build
+          ./build.sh
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

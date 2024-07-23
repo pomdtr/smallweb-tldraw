@@ -28,5 +28,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: smallweb
+          enable_jekyll: true
           publish_dir: ./server
 

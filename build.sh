@@ -1,10 +1,12 @@
 #!/bin/sh
 
-cd frontend || exit
+set -eu
+
+cd frontend
 npm install
 npm run build
 
-cd .. || exit
+cd ..
 rm -r server/static
 mv frontend/dist server/static
 

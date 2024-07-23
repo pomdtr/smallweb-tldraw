@@ -31,6 +31,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: smallweb
           enable_jekyll: true
-          exclude_assets: '.github,.vscode,frontend'
+          exclude_assets: '.github,.gitignore,.vscode,frontend'
           publish_dir: .
 

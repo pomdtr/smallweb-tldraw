@@ -30,5 +30,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: smallweb
+          exclude_assets: '.github,frontend'
           publish_dir: .
 

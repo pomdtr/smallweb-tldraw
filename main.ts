@@ -1,13 +1,11 @@
 import { Hono } from "@hono/hono";
 import { serveStatic } from "@hono/hono/deno";
 
-const app = new Hono();
+const server = new Hono();
 
-app.get(
+server.get(
     "*",
-    serveStatic({
-        root: "./dist",
-    }),
+    serveStatic({ root: "./static" }),
 );
 
-export default app;
+export default server;

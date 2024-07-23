@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.5.1"
+  },
+  "tasks": {
+    "build": "cd frontend && npm run build"
+  }
+}

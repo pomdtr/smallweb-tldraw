@@ -25,12 +25,11 @@ jobs:
           npm run build
 
       - name: Commit changes
-        uses: peaceiris/actions-gh-pages@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         if: github.ref == 'refs/heads/main'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: smallweb
-          enable_jekyll: true
-          exclude_assets: 'README.md,.github,.gitignore,.vscode,frontend'
-          publish_dir: .
+          branch: smallweb
+          create_branch: true
+          file_pattern: 'main.ts deno.json deno.lock dist'
+          add_options: '--force'
 

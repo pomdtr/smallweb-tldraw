@@ -7,6 +7,6 @@ npm install
 npm run build
 
 cd ..
-rm -r server/static
+rm -rf server/static
 mv frontend/dist server/static
 

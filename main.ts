@@ -5,9 +5,7 @@ const app = new Hono();
 
 app.get(
     "*",
-    serveStatic({
-        root: "./dist",
-    }),
+    serveStatic({ root: "./dist" }),
 );
 
 export default app;

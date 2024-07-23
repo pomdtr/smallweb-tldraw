@@ -32,4 +32,5 @@ jobs:
           create_branch: true
           file_pattern: 'main.ts deno.json deno.lock dist'
           add_options: '--force'
+          skip_dirty_check: true
 

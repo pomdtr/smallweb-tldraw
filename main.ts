@@ -1,11 +1,15 @@
 import { Hono } from "@hono/hono";
 import { serveStatic } from "@hono/hono/deno";
 
-const server = new Hono();
+const app = new Hono();
 
-server.get(
+app.get("/api/hello", (c) => {
+    return c.json({ message: "Hello, World!" });
+});
+
+app.get(
     "*",
     serveStatic({ root: "./static" }),
 );
 
-export default server;
+export default app;

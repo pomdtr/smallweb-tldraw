@@ -1,6 +1,8 @@
 {
-    "deno.enable": true,
+    "deno.enablePaths": [
+        "server"
+    ],
     "deno.disablePaths": [
-        "frontend"
+        "./frontend"
     ]
 }

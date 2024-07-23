@@ -5,7 +5,7 @@ const server = new Hono();
 
 server.get(
     "*",
-    serveStatic({ root: "./dist" }),
+    serveStatic({ root: "./static" }),
 );
 
 export default server;

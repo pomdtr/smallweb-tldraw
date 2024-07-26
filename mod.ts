@@ -2,11 +2,11 @@ import { Hono } from "@hono/hono";
 import embed from "./embed/mod.ts";
 
 export class Tldraw {
-    constructor() {}
-    fetch = (req: Request): Response | Promise<Response> => {
-        const app = new Hono();
+    public app: Hono;
+    constructor() {
+        this.app = new Hono();
 
-        app.get("/api/load", () => {
+        this.app.get("/api/load", () => {
             const snapshot = localStorage.getItem("snapshot");
             if (!snapshot) {
                 return new Response(null, {
@@ -21,7 +21,7 @@ export class Tldraw {
             });
         });
 
-        app.post("/api/save", async (c) => {
+        this.app.post("/api/save", async (c) => {
             const drawing = await c.req.text();
             localStorage.setItem("snapshot", drawing);
             return new Response(null, {
@@ -29,13 +29,15 @@ export class Tldraw {
             });
         });
 
-        app.get(
+        this.app.get(
             "*",
             (c) => {
                 return embed.serve(c.req.raw);
             },
         );
+    }
 
-        return app.fetch(req);
+    fetch = (req: Request): Response | Promise<Response> => {
+        return this.app.fetch(req);
     };
 }

@@ -1,0 +1,22 @@
+{
+  "name": "@pomdtr/tldraw",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.5.1"
+  },
+  "publish": {
+    "include": [
+      "embed",
+      "mod.ts"
+    ]
+  },
+  "tasks": {
+    "install-deps": "npm install --prefix=frontend",
+    "build-frontend": "npm run --prefix=frontend build",
+    "embed": "deno run -A jsr:@smallweb/embed@0.0.15 frontend/dist embed",
+    "build": "deno task build-frontend && deno task embed"
+  }
+}

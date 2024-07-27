@@ -4,7 +4,7 @@
     "specifiers": {
       "jsr:@hono/hono@^4.5.1": "jsr:@hono/hono@4.5.1",
       "jsr:@smallweb/embed@0.0.15": "jsr:@smallweb/embed@0.0.15",
-      "jsr:@smallweb/storage@^0.0.5": "jsr:@smallweb/storage@0.0.5",
+      "jsr:@smallweb/storage@^0.0.11": "jsr:@smallweb/storage@0.0.11",
       "jsr:@std/cli@^1.0.0-rc.5": "jsr:@std/cli@1.0.1",
       "jsr:@std/encoding": "jsr:@std/encoding@1.0.1",
       "jsr:@std/encoding@1.0.1": "jsr:@std/encoding@1.0.1",
@@ -16,11 +16,15 @@
       "jsr:@std/net@^1.0.0-rc.1": "jsr:@std/net@1.0.0-rc.2",
       "jsr:@std/path@1.0.0-rc.2": "jsr:@std/path@1.0.0-rc.2",
       "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.2",
-      "jsr:@std/streams@^1.0.0-rc.3": "jsr:@std/streams@1.0.0"
+      "jsr:@std/streams@^1.0.0-rc.3": "jsr:@std/streams@1.0.0",
+      "npm:@joaomoreno/unique-names-generator@^5.1.0": "npm:@joaomoreno/unique-names-generator@5.1.0"
     },
     "jsr": {
       "@hono/hono@4.5.1": {
         "integrity": "459748ed4d4146c6e4bdff0213ff1ac44749904066ae02e7550d6c7f28c9bc4c"
+      },
+      "@hono/hono@4.5.2": {
+        "integrity": "d299fac259b4f62397a4aa1df2ef57d9f2c13d6a04daa860aeba27f3c5a353f5"
       },
       "@smallweb/embed@0.0.15": {
         "integrity": "afb6e99b059681bbc3dd92adcba023a0941b1cd38a249e98d815d662ffbf0f7d",
@@ -31,8 +35,20 @@
           "jsr:@std/path@1.0.0-rc.2"
         ]
       },
-      "@smallweb/storage@0.0.5": {
-        "integrity": "0d65564336f66da5c32166ece8bd444e2b9893ce31aa9205690d81e300e3f9fa",
+      "@smallweb/storage@0.0.11": {
+        "integrity": "37c88df89a17547fbe42cabfe6cecf8bb540241ffeb4e8c108fa9d751288fa58",
+        "dependencies": [
+          "jsr:@std/encoding@^1.0.1"
+        ]
+      },
+      "@smallweb/storage@0.0.7": {
+        "integrity": "573d5e61a0975378b7a3618902d43ed24323ca8c479eb509fa4fab2a5999f3fb",
+        "dependencies": [
+          "jsr:@std/encoding@^1.0.1"
+        ]
+      },
+      "@smallweb/storage@0.0.8": {
+        "integrity": "6998bdce17946488ad2374a5156060bd0fbc8afdeee861708886d04bb4ada208",
         "dependencies": [
           "jsr:@std/encoding@^1.0.1"
         ]
@@ -72,6 +88,12 @@
       },
       "@std/streams@1.0.0": {
         "integrity": "350242b8fad9874ed45f3c42df3d132bd0a958f8a8bae9bbfa1ff039716aa6fb"
+      }
+    },
+    "npm": {
+      "@joaomoreno/unique-names-generator@5.1.0": {
+        "integrity": "sha512-KEVThTpUIKPb7dBKJ9mJ3WYnD1mJZZsEinCSp9CVEPlWbDagurFv1RKRjvvujrLfJzsGc0HkBHS9W8Bughao4A==",
+        "dependencies": {}
       }
     }
   },
@@ -164,7 +186,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@hono/hono@^4.5.1",
-      "jsr:@smallweb/storage@^0.0.5"
+      "jsr:@smallweb/storage@^0.0.11",
+      "npm:@joaomoreno/unique-names-generator@^5.1.0"
     ]
   }
 }

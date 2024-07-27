@@ -10,7 +10,11 @@ import { useEffect, useState } from "react";
 import "./index.css";
 
 async function getRemoteSnapshot() {
-	const response = await fetch("/api/load");
+	const response = await fetch(window.location.href, {
+		headers: {
+			"content-type": "application/json",
+		},
+	});
 	if (response.status === 204) {
 		return null;
 	}
@@ -18,9 +22,12 @@ async function getRemoteSnapshot() {
 }
 
 async function saveRemoteSnapshot(snapshot: any) {
-	await fetch("/api/save", {
+	await fetch(window.location.href, {
 		method: "POST",
 		body: JSON.stringify(snapshot),
+		headers: {
+			"content-type": "application/json",
+		},
 	});
 }
 

@@ -1,7 +1,22 @@
 import { Hono } from "@hono/hono";
 import embed from "./embed/mod.ts";
 import type { SmallwebStorage } from "@smallweb/storage";
+
 import { LocalStorage } from "@smallweb/storage/local-storage";
+import {
+    animals,
+    colors,
+    uniqueNamesGenerator,
+} from "@joaomoreno/unique-names-generator";
+
+function uniqueName() {
+    return uniqueNamesGenerator({
+        length: 2,
+        style: "lowerCase",
+        separator: "-",
+        dictionaries: [colors, animals],
+    }).replace(/^(\w)/, (str) => str.toLowerCase());
+}
 
 type TldrawOptions = {
     storage?: SmallwebStorage;
@@ -13,31 +28,55 @@ export function tldraw(
     const storage: SmallwebStorage = options.storage || new LocalStorage();
     const app = new Hono();
 
-    app.get("/api/load", async () => {
-        try {
-            const snapshot = await storage.get("snapshot");
-            if (!snapshot) {
-                return new Response(null, {
-                    status: 204,
+    app.get("/", async (c) => {
+        const keys = await storage.keys();
+        if (keys.length == 0) {
+            return c.redirect("/new");
+        }
+
+        return c.redirect(`/drawings/${encodeURIComponent(keys[0])}`);
+    });
+
+    app.get("/new", (c) => {
+        const name = uniqueName();
+        return c.redirect(`/drawings/${name}`);
+    });
+
+    app.get("/drawings", async (c) => {
+        const keys = await storage.keys();
+        return c.json(keys.map((key) => ({
+            key,
+            url: `/drawings/${key}`,
+        })));
+    });
+
+    app.get("/drawings/:name", async (c) => {
+        const contentType = c.req.header("content-type");
+        switch (contentType) {
+            case "application/json": {
+                const snapshot = await storage.getJson(c.req.param("name"));
+                if (!snapshot) {
+                    return new Response(null, {
+                        status: 204,
+                    });
+                }
+
+                return c.json(snapshot);
+            }
+            default: {
+                const page = await embed.load("index.html");
+                return new Response(await page.bytes(), {
+                    headers: {
+                        "Content-Type": "text/html",
+                    },
                 });
             }
-
-            return new Response(snapshot, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        } catch (e) {
-            await storage.delete("snapshot");
-            return new Response(null, {
-                status: 204,
-            });
         }
     });
 
-    app.post("/api/save", async (c) => {
-        const drawing = await c.req.arrayBuffer();
-        await storage.set("snapshot", new Uint8Array(drawing));
+    app.post("/drawings/:name", async (c) => {
+        const drawing = await c.req.json();
+        await storage.setJson(c.req.param("name"), drawing);
         return new Response(null, {
             status: 204,
         });

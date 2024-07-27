@@ -1,5 +1,5 @@
-import { Tldraw } from "./mod.ts";
+import { tldraw } from "./mod.ts";
 
-const tldraw = new Tldraw();
-
-export default tldraw;
+export default {
+    fetch: tldraw(),
+};

@@ -1,11 +1,12 @@
 {
   "name": "@pomdtr/tldraw",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": {
     ".": "./mod.ts"
   },
   "imports": {
-    "@hono/hono": "jsr:@hono/hono@^4.5.1"
+    "@hono/hono": "jsr:@hono/hono@^4.5.1",
+    "@smallweb/storage": "jsr:@smallweb/storage@^0.0.5"
   },
   "publish": {
     "include": [

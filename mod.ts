@@ -1,13 +1,21 @@
 import { Hono } from "@hono/hono";
 import embed from "./embed/mod.ts";
+import type { SmallwebStorage } from "@smallweb/storage";
+import { LocalStorage } from "@smallweb/storage/local-storage";
 
-export class Tldraw {
-    public app: Hono;
-    constructor() {
-        this.app = new Hono();
+type TldrawOptions = {
+    storage?: SmallwebStorage;
+};
 
-        this.app.get("/api/load", () => {
-            const snapshot = localStorage.getItem("snapshot");
+export function tldraw(
+    options: TldrawOptions = {},
+): (req: Request) => Response | Promise<Response> {
+    const storage: SmallwebStorage = options.storage || new LocalStorage();
+    const app = new Hono();
+
+    app.get("/api/load", async () => {
+        try {
+            const snapshot = await storage.get("snapshot");
             if (!snapshot) {
                 return new Response(null, {
                     status: 204,
@@ -19,25 +27,28 @@ export class Tldraw {
                     "Content-Type": "application/json",
                 },
             });
-        });
-
-        this.app.post("/api/save", async (c) => {
-            const drawing = await c.req.text();
-            localStorage.setItem("snapshot", drawing);
+        } catch (e) {
+            await storage.delete("snapshot");
             return new Response(null, {
                 status: 204,
             });
+        }
+    });
+
+    app.post("/api/save", async (c) => {
+        const drawing = await c.req.arrayBuffer();
+        await storage.set("snapshot", new Uint8Array(drawing));
+        return new Response(null, {
+            status: 204,
         });
+    });
 
-        this.app.get(
-            "*",
-            (c) => {
-                return embed.serve(c.req.raw);
-            },
-        );
-    }
+    app.get(
+        "*",
+        (c) => {
+            return embed.serve(c.req.raw);
+        },
+    );
 
-    fetch = (req: Request): Response | Promise<Response> => {
-        return this.app.fetch(req);
-    };
+    return (req: Request) => app.fetch(req);
 }

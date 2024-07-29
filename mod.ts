@@ -31,26 +31,26 @@ export function tldraw(
     app.get("/", async (c) => {
         const keys = await storage.keys();
         if (keys.length == 0) {
-            return c.redirect("/new");
+            return c.redirect("/create");
         }
 
-        return c.redirect(`/drawings/${encodeURIComponent(keys[0])}`);
+        return c.redirect(`/edit/${encodeURIComponent(keys[0])}`);
     });
 
-    app.get("/new", (c) => {
+    app.get("/create", (c) => {
         const name = uniqueName();
-        return c.redirect(`/drawings/${name}`);
+        return c.redirect(`/drawing/edit/${name}`);
     });
 
-    app.get("/drawings", async (c) => {
+    app.get("/list", async (c) => {
         const keys = await storage.keys();
         return c.json(keys.map((key) => ({
             key,
-            url: `/drawings/${key}`,
+            url: `/edit/${key}`,
         })));
     });
 
-    app.get("/drawings/:name", async (c) => {
+    app.get("/edit/:name", async (c) => {
         const contentType = c.req.header("content-type");
         switch (contentType) {
             case "application/json": {
@@ -74,7 +74,7 @@ export function tldraw(
         }
     });
 
-    app.post("/drawings/:name", async (c) => {
+    app.post("/edit/:name", async (c) => {
         const drawing = await c.req.json();
         await storage.setJson(c.req.param("name"), drawing);
         return new Response(null, {

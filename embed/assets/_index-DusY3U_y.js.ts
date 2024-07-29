@@ -1,7 +1,7 @@
 import type { FileMeta } from "jsr:@smallweb/embed@0.0.15/embed";
 
 export default {
- size: 1121655,
+ size: 1121626,
  compression: "gzip",
  encoded: `H4sIAAAAAAAA/9y96XfiSLY4+P39FVjj4Se1AxJMOhfhSF6mjatclYs7yaXcLg8tRGCUFiFlSBhsQ//tc+6NRSGBnVn9+sPMO8fHKPb9xo273gSiNujQD6Nv
 LMybYzaJODsTScpEftu9CUTtpkNdRjjJPfqK1yJeY71BB2PuGZ/PmAhGMfN3WiRM+CS6mpvwQkS5/r4J4jnz87Xnswt+SXOs+aqo+AZqzG9TlkxqfIc62e1s
@@ -3812,8 +3812,8 @@ kb+UkIhlO+Did0GVc7NaMvqF2KQDcNcL/1UdJ2wVPTlqbxIaXoNDqXhEx9EHypEsGWSu7xHcYfWrlyPC
 ASoSbL05tT7MkRV/tq5Kux4R9EtJs5haGc+9LsSWPN8PCfqZHUeFTsceEplRkDx0nVqeDpn6wZuEkt3gWQIO5mQDRfC+cCHLZBDkFPUEcELmdO618TrnfXYF
 PhOU9lYCrhRWyLFoZF9TyY1xCDIWbSSeshjl5e0Rp0MyBZ9UlItg6igl8h0o2gmcKAejNoz6/WcBOPLVagLwLtBmBEa1c08uKNqGWK43X6hQESHz+u2aKFwT
 5/Wr83cOAQPs4Nn5q5cgI0qyy2QIGILkD1XXAuKvegXlLDblNpVtCRzYZuV11kZJUAH0x0Ijuelzofocx0GCNlVwYk1RaVoOU9frwqYm9cUSlp2rerBM+2sD
-WgNEffI9FEkHO3B9hn4WVC2VgIvJHN90XAZOju+QM1ubsz7JgO3AdhfqJNNWM3rjXDp0huiRBqGmi6Cz5Dz8C/B6snRq+B0AJSkU1yDxJtyrjos9bDgdEJ+l
-7NJ1ziFaI0bdqoGhz3j45IWr8vC6cgRg4nFvTny65xGFQetoelFvWgGoByBQPW5Q2bk66t8yVriGuARbTElZPpmcDlyHM1Y4nteWt4Cu0gCmbaC1YkAKsxXr
-5NcsUjpcXvfP/w8AAP//AwBtO+3Udx0RAA==`,
- eTag: `"111d77-wmnTWUXttkW21EQQuh7LWbPtgkK"`,
+WgNEffI9FEkHO3B9hn4WVC2VgIvJHN90XAZOju+QM1ubsz7JgO3AdhfqJNNWM3rjXDp0huiRhgDUdBF0lpyHfwFeT5ZODb8DoCSF4hok3oR71XGxhy1Oh4dP
+XrgqmteVnQxzi3tz4tM9jyiYWUeThHpfCkADALHocQ/KztVp/paxwjX0I5hbSuLxyeR04DqcscLxvLa86HOVki9tAzkVAxiYrTsnv2aRUtPyun/+fwAAAP//
+AwAjJ/X9Wh0RAA==`,
+ eTag: `"111d5a-CJXKLndyP9Ge5PmQhU7zvCHGTML"`,
 } satisfies FileMeta;

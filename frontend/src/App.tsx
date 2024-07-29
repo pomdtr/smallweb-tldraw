@@ -81,7 +81,6 @@ export default function App() {
 				onMount={(editor) => {
 					editor.store.listen(
 						debounce(async () => {
-							console.log("Store changed");
 							const snapshot = getSnapshot(editor.store);
 							await saveRemoteSnapshot(snapshot);
 						}, 1000),

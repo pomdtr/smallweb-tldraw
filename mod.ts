@@ -39,7 +39,7 @@ export function tldraw(
 
     app.get("/create", (c) => {
         const name = uniqueName();
-        return c.redirect(`/drawing/edit/${name}`);
+        return c.redirect(`/edit/${name}`);
     });
 
     app.get("/list", async (c) => {

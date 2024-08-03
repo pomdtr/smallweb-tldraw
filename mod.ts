@@ -1,93 +1,37 @@
-import { Hono } from "@hono/hono";
-import embed from "./embed/mod.ts";
-import type { SmallwebStorage } from "@smallweb/storage";
+import { createCommand } from "./command.ts";
+import { createServer } from "./server.ts";
 
+import type { Storage } from "@smallweb/storage";
 import { LocalStorage } from "@smallweb/storage/local-storage";
-import {
-    animals,
-    colors,
-    uniqueNamesGenerator,
-} from "@joaomoreno/unique-names-generator";
 
-function uniqueName() {
-    return uniqueNamesGenerator({
-        length: 2,
-        style: "lowerCase",
-        separator: "-",
-        dictionaries: [colors, animals],
-    }).replace(/^(\w)/, (str) => str.toLowerCase());
-}
-
-type TldrawOptions = {
-    storage?: SmallwebStorage;
+type TldrawParams = {
+    storage: Storage;
 };
 
-export function tldraw(
-    options: TldrawOptions = {},
-): (req: Request) => Response | Promise<Response> {
-    const storage: SmallwebStorage = options.storage || new LocalStorage();
-    const app = new Hono();
-
-    app.get("/", async (c) => {
-        const keys = await storage.keys();
-        if (keys.length == 0) {
-            return c.redirect("/create");
-        }
-
-        return c.redirect(`/edit/${encodeURIComponent(keys[0])}`);
-    });
-
-    app.get("/create", (c) => {
-        const name = uniqueName();
-        return c.redirect(`/edit/${name}`);
-    });
-
-    app.get("/list", async (c) => {
-        const keys = await storage.keys();
-        return c.json(keys.map((key) => ({
-            key,
-            url: `/edit/${key}`,
-        })));
-    });
-
-    app.get("/edit/:name", async (c) => {
-        const contentType = c.req.header("content-type");
-        switch (contentType) {
-            case "application/json": {
-                const snapshot = await storage.getJson(c.req.param("name"));
-                if (!snapshot) {
-                    return new Response(null, {
-                        status: 204,
-                    });
-                }
-
-                return c.json(snapshot);
-            }
-            default: {
-                const page = await embed.load("index.html");
-                return new Response(await page.bytes(), {
-                    headers: {
-                        "Content-Type": "text/html",
-                    },
-                });
-            }
-        }
-    });
-
-    app.post("/edit/:name", async (c) => {
-        const drawing = await c.req.json();
-        await storage.setJson(c.req.param("name"), drawing);
-        return new Response(null, {
-            status: 204,
-        });
-    });
-
-    app.get(
-        "*",
-        (c) => {
-            return embed.serve(c.req.raw);
-        },
-    );
-
-    return (req: Request) => app.fetch(req);
+interface App {
+    fetch: (req: Request) => Response | Promise<Response>;
+    run: (args: string[]) => void | Promise<void>;
 }
+
+function createApp(
+    { storage }: TldrawParams,
+): App {
+    const server = createServer({ storage });
+    const command = createCommand({ storage });
+
+    return {
+        fetch(req) {
+            return server.fetch(req);
+        },
+        async run(args) {
+            await command.parse(args);
+        },
+    };
+}
+
+const app: App = createApp({
+    storage: new LocalStorage(),
+});
+
+export { createApp, createCommand, createServer };
+export default app;

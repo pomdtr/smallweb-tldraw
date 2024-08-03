@@ -9,8 +9,9 @@ Create a single `main.ts` file to get started.
 import { tldraw } from "jsr:@pomdtr/tldraw@0.0.3";
 
 export default {
-    fetch: tldraw(),
-}
+  fetch: tldraw(),
+};
 ```
 
-To create a new drawing, go to `/create`. You can list your drawings using `/list`.
+To create a new drawing, go to `/create`. You can list your drawings using
+`/list`.

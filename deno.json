@@ -4,6 +4,7 @@
   "exports": {
     ".": "./mod.ts"
   },
+  "lock": false,
   "imports": {
     "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.5",
     "open": "npm:open@10.1.0",

@@ -19,7 +19,7 @@ function uniqueName() {
 
 export function createServer({ storage }: {
     storage: Storage;
-}): Hono {
+}): (req: Request) => Response | Promise<Response> {
     const app = new Hono();
 
     app.get("/", async (c) => {
@@ -87,5 +87,5 @@ export function createServer({ storage }: {
         },
     );
 
-    return app;
+    return (req) => app.fetch(req);
 }

@@ -2,7 +2,9 @@ import { Command } from "@cliffy/command";
 import open from "open";
 import type { Storage } from "@smallweb/storage";
 
-export function createCommand({ storage }: { storage: Storage }): Command {
+export function createCommand(
+    { storage }: { storage: Storage },
+): (args: string[]) => Promise<void> {
     const { hostname: name } = new URL(window.location.href);
 
     const root = new Command().name(name).action(() => {
@@ -37,5 +39,7 @@ export function createCommand({ storage }: { storage: Storage }): Command {
             await open(url);
         });
 
-    return root;
+    return async (args: string[]) => {
+        await root.parse(args);
+    };
 }

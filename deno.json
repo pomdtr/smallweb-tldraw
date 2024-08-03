@@ -11,6 +11,9 @@
     "@joaomoreno/unique-names-generator": "npm:@joaomoreno/unique-names-generator@^5.1.0",
     "@smallweb/storage": "jsr:@smallweb/storage@^0.0.14"
   },
+  "smallweb": {
+    "entrypoint": "./mod.ts"
+  },
   "publish": {
     "include": [
       "README.md",

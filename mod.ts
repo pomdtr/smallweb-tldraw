@@ -16,16 +16,9 @@ interface App {
 function createApp(
     { storage }: TldrawParams,
 ): App {
-    const server = createServer({ storage });
-    const command = createCommand({ storage });
-
     return {
-        fetch(req) {
-            return server.fetch(req);
-        },
-        async run(args) {
-            await command.parse(args);
-        },
+        fetch: createServer({ storage }),
+        run: createCommand({ storage }),
     };
 }
 

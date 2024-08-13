@@ -2,16 +2,13 @@
 
 ## Usage
 
-Create a single `main.ts` file to get started.
+Create a smallweb.json file with the following content
 
-```typescript
-// ~/localhost/tldraw/main.ts
-import { tldraw } from "jsr:@pomdtr/tldraw@0.0.3";
-
-export default {
-  fetch: tldraw(),
-};
+```json
+{
+  "entrypoint": "jsr:@pomdtr/tldraw",
+  "permissions": {
+    "write": ["./drawings"]
+  }
+}
 ```
-
-To create a new drawing, go to `/create`. You can list your drawings using
-`/list`.

@@ -1,30 +1,24 @@
-import { createCommand } from "./command.ts";
 import { createServer } from "./server.ts";
 
-import type { Storage } from "@smallweb/storage";
-import { LocalStorage } from "@smallweb/storage/local-storage";
-
 type TldrawParams = {
-    storage: Storage;
+    root: string;
 };
 
 interface App {
     fetch: (req: Request) => Response | Promise<Response>;
-    run: (args: string[]) => void | Promise<void>;
 }
 
 function createApp(
-    { storage }: TldrawParams,
+    { root }: TldrawParams,
 ): App {
     return {
-        fetch: createServer({ storage }),
-        run: createCommand({ storage }),
+        fetch: createServer({ root }),
     };
 }
 
 const app: App = createApp({
-    storage: new LocalStorage(),
+    root: "./drawings",
 });
 
-export { createApp, createCommand, createServer };
+export { createApp, createServer };
 export default app;

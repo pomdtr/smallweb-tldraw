@@ -1,6 +1,7 @@
 import { Hono } from "@hono/hono";
 import embed from "./embed/mod.ts";
-import type { Storage } from "@smallweb/storage";
+import { basename } from "@std/path";
+import { ensureDir, exists } from "@std/fs";
 
 import {
     animals,
@@ -17,18 +18,21 @@ function uniqueName() {
     }).replace(/^(\w)/, (str) => str.toLowerCase());
 }
 
-export function createServer({ storage }: {
-    storage: Storage;
+export function createServer({ root }: {
+    root: string;
 }): (req: Request) => Response | Promise<Response> {
     const app = new Hono();
 
     app.get("/", async (c) => {
-        const keys = await Array.fromAsync(storage.list());
-        if (keys.length == 0) {
+        await ensureDir(root);
+        const files = await Array.fromAsync(Deno.readDir(root));
+        if (files.length == 0) {
             return c.redirect("/create");
         }
 
-        return c.redirect(`/edit/${encodeURIComponent(keys[0])}`);
+        return c.redirect(
+            `/edit/${encodeURIComponent(basename(files[0].name, ".json"))}`,
+        );
     });
 
     app.get("/create", (c) => {
@@ -37,10 +41,11 @@ export function createServer({ storage }: {
     });
 
     app.get("/list", async (c) => {
-        const keys = await Array.fromAsync(storage.list());
-        return c.json(keys.map((key) => ({
-            key,
-            url: `/edit/${key}`,
+        await ensureDir(root);
+        const entries = await Array.fromAsync(Deno.readDir(root));
+        return c.json(entries.map((entry) => ({
+            key: basename(entry.name, ".json"),
+            url: `/edit/${basename(entry.name, ".json")}`,
         })));
     });
 
@@ -48,7 +53,16 @@ export function createServer({ storage }: {
         const contentType = c.req.header("content-type");
         switch (contentType) {
             case "application/json": {
-                const snapshot = await storage.get<string>(c.req.param("name"));
+                const filename = `${root}/${c.req.param("name")}.json`;
+                if (!await exists(filename)) {
+                    return new Response(null, {
+                        status: 204,
+                    });
+                }
+                const snapshot = await Deno.readTextFile(
+                    filename,
+                );
+
                 if (!snapshot) {
                     return new Response(null, {
                         status: 204,
@@ -74,7 +88,11 @@ export function createServer({ storage }: {
 
     app.post("/edit/:name", async (c) => {
         const drawing = await c.req.text();
-        await storage.set(c.req.param("name"), drawing);
+        await ensureDir(root);
+        await Deno.writeTextFile(
+            `${root}/${c.req.param("name")}.json`,
+            drawing,
+        );
         return new Response(null, {
             status: 204,
         });

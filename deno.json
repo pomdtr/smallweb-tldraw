@@ -1,29 +1,38 @@
 {
   "name": "@pomdtr/tldraw",
-  "version": "0.0.6-rc.1",
+  "version": "0.0.6-rc.2",
   "exports": {
     ".": "./mod.ts"
   },
   "lock": false,
   "imports": {
     "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.5",
-    "open": "npm:open@10.1.0",
     "@hono/hono": "jsr:@hono/hono@^4.5.1",
     "@joaomoreno/unique-names-generator": "npm:@joaomoreno/unique-names-generator@^5.1.0",
-    "@smallweb/storage": "jsr:@smallweb/storage@^0.0.14"
-  },
-  "smallweb": {
-    "entrypoint": "./mod.ts"
+    "@smallweb/storage": "jsr:@smallweb/storage@^0.0.14",
+    "@std/fs": "jsr:@std/fs@^1.0.1",
+    "@std/path": "jsr:@std/path@^1.0.2",
+    "open": "npm:open@10.1.0"
   },
   "publish": {
     "include": [
       "README.md",
       "LICENSE",
       "embed",
-      "command.ts",
       "server.ts",
       "mod.ts"
     ]
+  },
+  "smallweb": {
+    "private": true,
+    "permissions": {
+      "read": [
+        "."
+      ],
+      "write": [
+        "./drawings"
+      ]
+    }
   },
   "tasks": {
     "install-deps": "npm install --prefix=frontend",

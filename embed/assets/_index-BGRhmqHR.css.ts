@@ -1,10 +1,9 @@
 import type { FileMeta } from "jsr:@smallweb/embed@0.0.15/embed";
 
 export default {
-  size: 67813,
-  compression: "gzip",
-  encoded:
-    `H4sIAAAAAAAA/+x9a4/jOLbY9/wKZYJJdc2U2CL1dk313b25QXaB5EsCLBIsBoZsq8rali1Dkl1VXZj/HpxDSiIpUpKre3cnN72LqbYk8vDw8HGePPxDcThV
+ size: 67813,
+ compression: "gzip",
+ encoded: `H4sIAAAAAAAA/+x9a4/jOLbY9/wKZYJJdc2U2CL1dk313b25QXaB5EsCLBIsBoZsq8rali1Dkl1VXZj/HpxDSiIpUpKre3cnN72LqbYk8vDw8HGePPxDcThV
 dfvDvm1Pzerjx8fq2Dbkqaqeyjw7FQ3ZVoeP26Zh//KYHYry9eHPxzavV89P+/YPoefdx573n3dFcyqz14fmOTv9cE/a0t1WxzYrjnn9BvDcpviSryg7vdy7
 bnPKtrlLV478yFZOID36KyeRHoOVo1QOVw6NpOdo5TBPeo5XDpPrJyvHl+unKyeSm6Peyol5gTrbFefG9Tr0xDPt8BPPbOVE8rO/clL5GTCm+KLMXvPa3WbH
 S9a4+2K3y48rx03xf/rnTbb9/FRX5+Nu5VDP0z8/1QV8CEcfmn12ypuV44/rVJe8LrPXZuXAYOntldX2c15jY9LXro67rcoy21R11la122zrYrMpcyg9U3RT
@@ -150,5 +149,5 @@ dnYYTG6zOO7xyrjcr7rUbOIaSbQVzfvWx8kl+6nF7FSy2g3FRdGSLm2fcmMH8jLHzwRIxfdjGl3rTYDo
 diS8VouENpzm49/YzEUgJsjfwq3CrnOryM13h57/CXZ4Axrf5Gi0AhhOCE3f8mNJP2bfxgEk8Nqy0tJ02QujW+WbWcmXp+DQ7p6TU2HJmFNvAnfpgPI/EPnO
 NMqx9TyzoVTL+mzAXhwLlRRV5QaeIXmtdLeaCZLZPC3d5GtlKPxuNAmBLpG5ERFT+2M31aKshTZQvS9Jus9kCMweFf9kSNm+uN8TiOokmcIBTsqB6iqxBSk0
 11qc87sMTePD1TnjIIUZMGp6ruvjJqyATaCsM6DHZiraAtU7men9GXex//B/AQAA//8DAPOV1d/lCAEA`,
-  eTag: `"108e5-Ah7BnXCeH7eZ4Ir1o8dVnrFnCNZ"`,
+ eTag: `"108e5-Ah7BnXCeH7eZ4Ir1o8dVnrFnCNZ"`,
 } satisfies FileMeta;

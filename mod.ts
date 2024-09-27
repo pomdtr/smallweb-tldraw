@@ -1,5 +1,3 @@
-/// <reference types="./smallweb.d.ts" />
-
 import { Command } from "@cliffy/command";
 import { Hono } from "@hono/hono";
 import embed from "./embed/mod.ts";
@@ -25,10 +23,10 @@ type TldrawParams = {
     basePath?: string;
 };
 
-export class Tldraw implements Smallweb.App {
+export class Tldraw {
     constructor(public params: TldrawParams) { }
 
-    fetch = (req: Request) => {
+    fetch = (req: Request): Response | Promise<Response> => {
         const app = new Hono();
         if (this.params.basePath) {
             app.basePath(this.params.basePath);
@@ -154,7 +152,7 @@ export class Tldraw implements Smallweb.App {
         return app.fetch(req);
     };
 
-    run = async (args: string[]) => {
+    run = async (args: string[]): Promise<void> => {
         const name = basename(Deno.cwd());
         const command = new Command().name(name).action(() => {
             command.showHelp();
@@ -179,4 +177,4 @@ export class Tldraw implements Smallweb.App {
 
 export default new Tldraw({
     outDir: "./drawings",
-});
+}) as Tldraw;

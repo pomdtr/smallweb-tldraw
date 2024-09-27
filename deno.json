@@ -1,6 +1,6 @@
 {
   "name": "@pomdtr/tldraw",
-  "version": "0.0.6-rc.3",
+  "version": "0.0.7",
   "exports": {
     ".": "./mod.ts"
   },
@@ -19,8 +19,7 @@
       "README.md",
       "LICENSE",
       "embed",
-      "mod.ts",
-      "smallweb.d.ts"
+      "mod.ts"
     ]
   },
   "tasks": {
